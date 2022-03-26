@@ -1,0 +1,7 @@
+<h1>id:<%= @dish.id %> の詳細ページ</h1>
+
+<p><%= @dish.content%> <%= @dish.vegetables %></p>
+
+<%= link_to '一覧に戻る', dishes_path %>
+<%= link_to 'この記録を編集する', edit_dish_path(@dish) %>
+<%= link_to 'この記録を削除する', @dish, method: :delete, data: { confirm: '本当に削除してよろしいですか?' } %>

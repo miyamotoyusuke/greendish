@@ -1,0 +1,9 @@
+<h1>食事記録</h1>
+<ul>
+  <% @dishes.each do |dish| %>
+    <li><%= link_to dish.id, dish %> <%= dish.content%> <%= dish.vegetables %></li>
+  <% end %>
+</ul>
+<%== pagy_nav(@pagy) %>
+
+<%= link_to '記録する', new_dish_path %>

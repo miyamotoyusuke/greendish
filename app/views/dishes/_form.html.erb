@@ -1,13 +1,5 @@
 <%= form_with(model: dish) do |f| %>
-  <% if dish.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% dish.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'layouts/error_messages', model: f.object %>
 
   <%= f.label :content, '料理名' %>
   <%= f.text_field :content %>

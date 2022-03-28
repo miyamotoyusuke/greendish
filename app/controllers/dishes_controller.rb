@@ -1,4 +1,5 @@
 class DishesController < ApplicationController
+  before_action :require_user_logged_in 
   before_action :set_dish, only: [:show, :edit, :update, :destroy]
   
   def index

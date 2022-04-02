@@ -1,9 +1,32 @@
 <h1>食事記録</h1>
-<ul>
-  <% @dishes.each do |dish| %>
-    <li><%= link_to dish.id, dish %> <%= dish.content%> <%= dish.vegetables %></li>
+
+  <h3>ランク</h3>
+  <% if @ave < 3 %>
+  <p>biginner</p>
+  <% elsif @ave < 5  %>
+  <p>middle</p>
+  <% elsif %>
+  <p>expert</p>
   <% end %>
-</ul>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>料理名</th>
+        <th>野菜</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @dishes.each do |dish| %>
+        <tr>
+          <td><%= link_to dish.id, dish %></td>
+          <td><%= dish.content %></td>
+          <td><%= dish.vegetables %>種類</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <%== pagy_nav(@pagy) %>
 
-<%= link_to '記録する', new_dish_path %>
+<%= link_to '記録する', new_dish_path, class: "btn btn-primary" %>

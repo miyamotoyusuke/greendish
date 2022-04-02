@@ -1,7 +1,17 @@
 <h1>id:<%= @dish.id %> の詳細ページ</h1>
-
-<p><%= @dish.content%> <%= @dish.vegetables %></p>
-
-<%= link_to '一覧に戻る', dishes_path %>
-<%= link_to 'この記録を編集する', edit_dish_path(@dish) %>
-<%= link_to 'この記録を削除する', @dish, method: :delete, data: { confirm: '本当に削除してよろしいですか?' } %>
+<table class="table table-bordered">
+  <tr>
+    <th>id</th>
+    <td><%= @dish.id %></td>
+  </tr>
+  <tr>
+    <th>料理名</th>
+    <td><%= @dish.content %></td>
+  </tr>
+  <tr>
+    <th>野菜</th>
+    <td><%= @dish.vegetables %>種類</td>
+  </tr>
+</table>
+<%= link_to 'この記録を編集する', edit_dish_path(@dish), class: "btn btn-secondary" %>
+<%= link_to 'この記録を削除する', @dish, method: :delete, data: { confirm: '本当に削除してよろしいですか?' }, class: "btn btn-danger" %>

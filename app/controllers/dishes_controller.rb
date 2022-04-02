@@ -1,9 +1,23 @@
 class DishesController < ApplicationController
   before_action :require_user_logged_in 
-  before_action :set_dish, only: [:show, :edit, :update, :destroy]
+  before_action :correct_dish, only: [:show, :edit, :update, :destroy]
   
   def index
-   @pagy, @dishes = pagy(Dish.all, items: 10)
+    @dish = current_user.dishes.build
+    @pagy, @dishes = pagy(current_user.dishes.order(id: :desc))
+    
+    @sum = 0
+    current_user.dishes.each do |d|
+      @sum += d.vegetables.to_i
+    
+    end
+    @count = current_user.dishes.count
+    
+    if @count == 0
+      @ave = 0
+    else
+    @ave = @sum/@count
+    end
   end
 
   def show
@@ -14,7 +28,7 @@ class DishesController < ApplicationController
   end
 
   def create
-    @dish = Dish.new(dish_params)
+    @dish = current_user.dishes.build(dish_params)
     if @dish.save
       flash[:success] = '食事の記録に成功しました'
       redirect_to @dish
@@ -45,8 +59,9 @@ class DishesController < ApplicationController
   end
   
   private
-  def set_dish
-    @dish = Dish.find(params[:id])
+  def correct_dish
+    @dish = current_user.dishes.find_by(id: params[:id])
+    redirect_to root_url unless @dish
   end
   def dish_params
     params.require(:dish).permit(:content, :vegetables)
